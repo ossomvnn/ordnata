@@ -5,8 +5,8 @@ const path = require('path');
 function createWindow() {
     // Erstellt das Browser-Fenster mit den definierten Maßen und Web-Einstellungen.
     const win = new BrowserWindow({
-        width: 1100, // Ihre gewünschte Breite
-        height: 750, // Ihre gewünschte Höhe
+        width: 1100,
+        height: 750,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'), 
             nodeIntegration: true,
