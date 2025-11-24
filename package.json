@@ -1,31 +1,38 @@
 {
-  "name": "ossomvn-internet-codes",
-  "version": "0.0.1",
+  "name": "house-manager-app",
+  "version": "1.0.0",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
-    "build:win": "electron-builder --win"
+    "build": "electron-builder" 
+    /* <-- Der einfache Build-Befehl */
   },
+  // ... andere Keys wie "keywords", "author" ...
+  "devDependencies": {
+    "electron": "^28.2.1",
+    "electron-builder": "^24.9.1"
+  },
+  
+  /* NEUE BUILD-SEKTION FÜR electron-builder */
   "build": {
-    "appId": "com.ossomvn.internetcodes",
-    "productName": "KlarCode Manager",
-    "asar": true,
+    "appId": "com.ossomvn.housemanager",
+    "productName": "Ordnata App",
+    "copyright": "Copyright © 2025 ${author}",
+    "files": [
+      "**/*",
+      "!node_modules/*" 
+    ],
     "directories": {
-      "output": "dist"
+      "output": "release-builds"
     },
     "win": {
       "target": "nsis",
-      "icon": "icon.ico"
+      "icon": "css/logo.png"
     },
-    "files": [
-      "**/*",
-      "!dist/",
-      "!node_modules/.cache/"
-    ]
-  },
-  "devDependencies": {
-    "electron": "^25.0.0",
-    "electron-builder": "^24.13.3"
+    "mac": {
+      "target": "dmg",
+      "icon": "css/logo.png" 
+      /* Electron-builder kann .png für Mac verwenden */
+    }
   }
 }
