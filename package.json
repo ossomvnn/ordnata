@@ -1,13 +1,21 @@
 {
-  "name": "house-manager-app",
+  "name": "ordnata-app",
   "version": "1.0.0",
+  "description": "Desktop application for managing resident access and cleaning schedules.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder" 
-    /* <-- Der einfache Build-Befehl */
+    /* Dieser Befehl baut die Windows und Mac Versionen */
   },
-  // ... andere Keys wie "keywords", "author" ...
+  "keywords": [
+    "electron",
+    "ordnata",
+    "management",
+    "web-app"
+  ],
+  "author": "ossomvn",
+  "license": "ISC",
   "devDependencies": {
     "electron": "^28.2.1",
     "electron-builder": "^24.9.1"
@@ -15,9 +23,9 @@
   
   /* NEUE BUILD-SEKTION FÜR electron-builder */
   "build": {
-    "appId": "com.ossomvn.housemanager",
-    "productName": "Ordnata App",
-    "copyright": "Copyright © 2025 ${author}",
+    "appId": "com.ossomvn.ordnata",
+    "productName": "Ordnata",
+    "copyright": "Copyright © 2025 ossomvn",
     "files": [
       "**/*",
       "!node_modules/*" 
@@ -32,7 +40,6 @@
     "mac": {
       "target": "dmg",
       "icon": "css/logo.png" 
-      /* Electron-builder kann .png für Mac verwenden */
     }
   }
 }
