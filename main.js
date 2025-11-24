@@ -8,8 +8,11 @@ function createWindow() {
         width: 1100,
         height: 750,
         webPreferences: {
+            // Lädt das preload-Skript
             preload: path.join(__dirname, 'preload.js'), 
+            // Ermöglicht Node.js-APIs im Renderer (für ältere Electron-Versionen)
             nodeIntegration: true,
+            // Deaktiviert die Kontextisolierung (für ältere Electron-Versionen)
             contextIsolation: false 
         }
     });
