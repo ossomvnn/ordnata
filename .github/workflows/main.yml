@@ -1,0 +1,52 @@
+# GitHub Action Workflow zum Bauen der Electron App
+name: Electron Build
+
+on:
+  push:
+    branches:
+      - main # Startet den Build, wenn Code in den main Branch gepusht wird
+
+jobs:
+  build:
+    # Definiert die Plattformen, auf denen gebaut werden soll
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      # Node.js Umgebung einrichten
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      # Abhängigkeiten installieren (sorgt dafür, dass electron-builder vorhanden ist)
+      - name: Install dependencies
+        run: npm install
+
+      # Electron App bauen
+      - name: Build and Package App
+        # Wählt das spezifische Build-Skript basierend auf dem Betriebssystem
+        if: matrix.os == 'windows-latest'
+        # Führt "npm run build-win" aus und verhindert das automatische Veröffentlichen ("publish=never")
+        run: npm run build-win -- --publish=never
+        
+      - name: Build and Package App
+        if: matrix.os == 'macos-latest'
+        # Führt "npm run build-mac" aus und verhindert das automatische Veröffentlichen ("publish=never")
+        run: npm run build-mac -- --publish=never
+
+      # Speichert das fertige Installationspaket als Artefakt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          # Benennt das Artefakt nach dem Betriebssystem (z.B. "windows-latest-build")
+          name: ${{ matrix.os }}-build
+          # Der Pfad zur Ausgabe von electron-builder
+          path: release-builds
+          retention-days: 7
