@@ -1,0 +1,63 @@
+# GitHub Action Workflow zum Bauen der Electron App
+name: Electron Build
+
+on:
+  push:
+    branches:
+      - main # Startet den Build, wenn Code in den main Branch gepusht wird
+  # Ermöglicht manuelles Starten über die GitHub Actions Oberfläche
+  workflow_dispatch:
+
+jobs:
+  build:
+    # Definiert die Plattformen, auf denen gebaut werden soll
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      # Node.js Umgebung einrichten
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Wir verwenden Node 20, wie es oft für Electron-Projekte empfohlen wird
+          node-version: 20
+          
+      # Abhängigkeiten installieren (sorgt dafür, dass electron-builder vorhanden ist)
+      - name: Install dependencies
+        run: npm install
+
+      # =================================================================
+      # BAU DER APPLIKATION
+      # =================================================================
+      
+      # Windows Build
+      - name: Build and Package Windows App
+        if: matrix.os == 'windows-latest'
+        # Führt "npm run build-win" aus und verhindert das automatische Veröffentlichen ("publish=never")
+        run: npm run build-win -- --publish=never
+        
+      # macOS Build
+      - name: Build and Package macOS App
+        if: matrix.os == 'macos-latest'
+        # Führt "npm run build-mac" aus und verhindert das automatische Veröffentlichen ("publish=never")
+        run: npm run build-mac -- --publish=never
+
+      # =================================================================
+      # UPLOAD DER ARTEFAKTE
+      # =================================================================
+      
+      # Speichert das fertige Installationspaket als Artefakt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          # Benennt das Artefakt nach dem Betriebssystem (z.B. "windows-latest-build")
+          name: ${{ matrix.os }}-build-ordnata
+          # Der Pfad zur Ausgabe von electron-builder
+          path: release-builds
+          retention-days: 7
