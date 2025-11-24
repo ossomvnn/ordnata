@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Zugangscode erstellen</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    /* Synchronized background color */
+    background: #f0f2f5;
+    margin: 0;
+    padding: 30px;
+}
+
+/* Back Button */
+#backBtn {
+    background: #6c7a89;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-weight: bold;
+}
+#backBtn:hover { background: #5a6772; }
+
+/* Card */
+.card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 18px;
+    width: 950px;
+    max-width: 95%;
+    margin: 70px auto 0 auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+}
+
+h2 { text-align: center; font-size: 26px; margin-bottom: 25px; color: #2d3436; }
+
+/* Form group */
+.form-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccd4dd;
+    font-size: 15px;
+    flex: 1 1 200px;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    /* Synchronized focus border color */
+    border-color: #357ABD;
+}
+
+
+#giveCodeBtn {
+    /* Synchronized primary button color */
+    background: #008080; /* Changed back to primary blue */
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1 1 180px;
+    transition: 0.2s;
+}
+#giveCodeBtn:hover { 
+    /* Synchronized primary button hover color */
+    background: #2a69a4; 
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th { 
+    /* Synchronized table header background color */
+    background: #357ABD; 
+    color: white; 
+}
+td { border-bottom: 1px solid #eef0f3; overflow-wrap: break-word; }
+
+tr:nth-child(even) { background: #f7f9fc; }
+/* Synchronized table row hover color */
+tr:hover { background: #e8f1ff; }
+
+.removeBtn {
+    background: #e74c3c;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+}
+.removeBtn:hover { background: #c0392b; }
+
+/* Filter/Count Styles are REMOVED */
+
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+    font-size: 12.5px;
+}
+</style>
+</head>
+
+<body>
+<button id="backBtn" onclick="location.href='index.html'">← Zurück</button>
+
+<div class="card">
+    <h2>Internetcode vergeben </h2>
+
+    <div class="form-group">
+        <select id="codePart">
+            <option value="">Gebäudeteil wählen</option>
+            <option value="A">Gebäudeteil A</option>
+            <option value="B">Gebäudeteil B</option>
+            <option value="C">Gebäudeteil C</option>
+            <option value="D">Gebäudeteil D</option>
+        </select>
+
+        <select id="codeName">
+            <option value="">Namen auswählen</option>
+        </select>
+
+        <input type="number" id="daysCount" placeholder="Tage bis zum nächsten Code">
+        <input type="number" id="totalCodes" placeholder="Codes insgesamt">
+
+        <button id="giveCodeBtn">Code vergeben</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gebäudeteil</th>
+                <th>Letztes Datum</th>
+                <th>Nächste Verfügbar</th>
+                <th>Codes Anzahl</th>
+                <th>Aktion</th>
+            </tr>
+        </thead>
+        <tbody id="codesTableBody"></tbody>
+    </table>
+</div>
+
+<footer>Entwickelt von Osman</footer>
+
+<script src="js/issue-code.js"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cleaning Plan</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #eef2f6;
+    padding: 30px;
+}
+
+/* Card */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    width: 900px;
+    max-width: 95%;
+    margin: 50px auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+h2 { text-align:center; }
+
+/* Controls */
+.control-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+select, button {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+button {
+    background: #008080;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover { background: #357ABD; }
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+#planTable th, 
+#planTable td {
+    text-align: center !important;
+    vertical-align: middle;
+    
+}
+#backBtn {
+    background: #6c7a89;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-weight: bold;
+}
+/* Full table border */
+#planTable, 
+#planTable th, 
+#planTable td {
+    
+    border: 1px solid #333;
+}
+
+#planTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Instructions block */
+#instructionsBox {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff4d6;
+    border-left: 5px solid #ff9900;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 8px;
+    width: 100%;
+}
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    
+}
+
+/* Print */
+@media print {
+    /* 1. ERZWINGT QUERFORMAT UND MINIMALE RÄNDER */
+    @page {
+        size: landscape; 
+        margin: 0.4cm; /* Ränder auf 0.5cm reduzieren */
+    }
+    button, select { display: none; }
+    body { 
+        background: white; 
+        padding: 0; /* Entfernt den Padding im Druckmodus */
+    }
+    .card { 
+        box-shadow: none; 
+        margin-top: 0; 
+        width: 100%; /* Stellt sicher, dass die Karte die volle Breite nutzt */
+    }
+}
+</style>
+</head>
+
+<body>
+<button id="backBtn" onclick="location.href='index.html'">← Zurück</button>
+<div class="card">
+    <h2>Monatlicher Reinigungsplan</h2>
+
+    <div class="control-group">
+        <select id="planPart">
+            <option value="">Gebäudeteil wählen</option>
+            <option value="A">Teil A</option>
+            <option value="B">Teil B</option>
+            <option value="C">Teil C</option>
+            <option value="D">Teil D</option>
+        </select>
+
+        <button onclick="generatePlan()">Generate Plan</button>
+        <button onclick="window.print()">Print</button>
+    </div>
+
+    <table id="planTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Tag</th>
+                <th>Ja</th>
+                <th>Nein</th>
+                <th>Control</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="instructionsBox">
+    <b>❗ Wichtige Hinweise:</b><br>
+    - Bitte jeden Tag kontrollieren und entsprechend „Ja“ oder „Nein“ markieren.<br>
+    - Wenn Sie sich nicht an den Reinigungsplan halten, erhalten Sie keine Beratung.<br>
+    - Bei Problemen bitte rechtzeitig melden.
+</div>
+
+
+</div>
+
+<script>
+function loadResidents() {
+    return JSON.parse(localStorage.getItem("residents") || "[]");
+}
+
+// Format date: "Montag, 25.11"
+function formatDay(d) {
+    const weekday = d.toLocaleDateString("de-DE", { weekday: "long" });
+    const day = d.getDate();
+    const month = d.getMonth() + 1;
+    return `${weekday}, ${day}.${month}`;
+}
+    function showMessage(msg, color = "#ff4444") {
+        const box = document.createElement("div");
+        box.innerText = msg;
+        box.style.position = "fixed";
+        box.style.top = "20px";
+        box.style.left = "50%";
+        box.style.transform = "translateX(-50%)";
+        box.style.background = color;
+        box.style.color = "#fff";
+        box.style.padding = "12px 18px";
+        box.style.borderRadius = "8px";
+        box.style.zIndex = "99999";
+        box.style.fontFamily = "Segoe UI";
+        document.body.appendChild(box);
+        setTimeout(() => box.remove(), 5000);
+    }
+
+function generatePlan() {
+    const part = document.getElementById("planPart").value;
+    if (!part) {
+        showMessage("Bitte Gebäudeteil wählen");
+        return;
+    }
+
+    const allResidents = loadResidents();
+    const list = allResidents.filter(r => r.part === part);
+
+    if (list.length === 0) {
+        showMessage("Keine Bewohner in diesem Gebäudeteil");
+        return;
+    }
+
+    const tbody = document.querySelector("#planTable tbody");
+    tbody.innerHTML = "";
+
+    let today = new Date();
+    today.setDate(today.getDate() + 1); // Start tomorrow
+
+    const residentsCount = list.length;
+
+    // Generate plan for 1 full month (30 days)
+    for (let i = 0; i < 30; i++) {
+        const person = list[i % residentsCount]; // rotate names
+        const dateStr = formatDay(today); // <-- NEW FORMAT
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${person.name}</td>
+            <td>${dateStr}</td>
+            <td style="text-align:center; border:1px solid #000; width:20px;"></td>
+            <td style="text-align:center; border:1px solid #000; width:20px;"></td>
+            <td></td>
+        `;
+        tbody.appendChild(tr);
+
+        today.setDate(today.getDate() + 1); // next day
+    }
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Termine</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    /* Synchronized background color */
+    background: #f0f2f5; 
+    margin: 0;
+    padding: 30px;
+}
+
+/* Back Button */
+#backBtn {
+    background: #6c7a89;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-weight: bold;
+}
+#backBtn:hover { background: #5a6772; }
+
+.card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 18px;
+    width: 950px;
+    max-width: 95%;
+    margin: 70px auto 0 auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+}
+
+h2 { text-align: center; font-size: 26px; margin-bottom: 25px; color: #2d3436; }
+h3 { font-size: 20px; margin-top: 30px; margin-bottom: 15px; color: #2d3436; text-align: center; }
+
+.form-group, .search-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.form-group select,
+.form-group input,
+.search-group input {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccd4dd;
+    font-size: 15px;
+    flex: 1 1 180px;
+    background: white;
+}
+.form-group input:focus,
+.form-group select:focus,
+.search-group input:focus {
+    outline: none;
+    /* Synchronized focus border color */
+    border-color: #357ABD;
+}
+
+#addBtn {
+    /* Synchronized primary button color */
+    background: #008080; 
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+#addBtn:hover { 
+    /* Synchronized primary button hover color */
+    background: #2a69a4; 
+}
+
+#searchBtn {
+    background: #008080;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#searchBtn:hover { background: #4b5563; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+th { 
+    /* Synchronized table header background color */
+    background: #357ABD; 
+    color: white; 
+    padding: 14px; 
+}
+td { padding: 12px; border-bottom: 1px solid #eef0f3; word-wrap: break-word; }
+
+tr:nth-child(even) { background: #f7f9fc; }
+/* Synchronized table row hover color */
+tr:hover { background: #e8f1ff; }
+
+.printBtn {
+    /* Synchronized secondary accent color (Teal) */
+    background: #008080; 
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+.printBtn:hover { background: #006666; }
+
+.deleteBtn {
+    /* Kept red for danger/delete */
+    background: #e74c3c;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.deleteBtn:hover { background: #c0392b; }
+
+#searchResult {
+    display: none;
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 300px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+#searchResult strong { color: #357ABD; }
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+    font-size: 12.5px;
+}
+</style>
+</head>
+
+<body>
+<button id="backBtn" onclick="location.href='index.html'">← Zurück</button>
+
+<h3>Termin nach Code suchen</h3>
+<div class="search-group">
+    <input type="text" id="searchCode" placeholder="Termincode eingeben">
+    <button id="searchBtn">Suchen</button>
+</div>
+
+<center><div id="searchResult"></div></center>
+
+<div class="card">
+    <h2>Termin erstellen</h2>
+
+    <div class="form-group">
+        <select id="appPart">
+            <option value="">Gebäudeteil wählen</option>
+            <option value="A">Gebäudeteil A</option>
+            <option value="B">Gebäudeteil B</option>
+            <option value="C">Gebäudeteil C</option>
+            <option value="D">Gebäudeteil D</option>
+        </select>
+
+        <select id="residentSelect">
+            <option value="">Bewohner auswählen</option>
+        </select>
+
+        <input type="date" id="appDate">
+        <input type="time" id="appTime">
+        <input type="text" id="appNote" placeholder="Notiz (optional)">
+        <button id="addBtn">Termin hinzufügen</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Datum</th>
+                <th>Uhrzeit</th>
+                <th>Notiz</th>
+                <th>Aktion</th>
+            </tr>
+        </thead>
+        <tbody id="appointmentsTable"></tbody>
+    </table>
+</div>
+
+<footer>Entwickelt von Osman</footer>
+
+<script src="js/appointments.js"></script>
+</body>
+</html>

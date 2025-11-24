@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Startseite</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background: #f0f2f5;
+        margin: 0;
+        height: 100vh; /* Use 100vh for fixed positioning */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* Allows content and fixed elements */
+    }
+
+    .container {
+        text-align: center;
+        /* Ensure the container is positioned correctly relative to the body's center */
+        margin-top: -50px; /* Adjust central position slightly */
+    }
+
+    h1 {
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .menu button {
+        background: #357ABD;
+        border: none;
+        padding: 18px;
+        border-radius: 12px;
+        font-size: 18px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: 0.2s ease;
+    }
+
+    .menu button:hover {
+        background: #2a69a4; /* Darker blue on hover */
+        transform: translateY(-3px);
+    }
+
+    /* --- NEW CSS FOR FLOATING ACTION BUTTONS --- */
+    .floating-actions {
+        position: fixed;
+        bottom: 55px; /* Positioned above the footer */
+        left: 20px;
+        right: 20px;
+        display: flex;
+        justify-content: space-between;
+        width: auto;
+    }
+
+    .floating-actions button {
+        /* Distinct, smaller style for auxiliary buttons */
+        background: #008080; /* Teal/Accent color to stand out */
+        border: none;
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 16px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: 0.2s ease;
+        min-width: 120px; /* Ensure buttons have space for German text */
+    }
+    
+    .floating-actions button:hover {
+        background: #006666;
+    }
+
+    /* --- FOOTER & BRANDING (Updated) --- */
+    footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        color: #777;
+        font-size: 13px;
+    }
+    .app-branding {
+        text-align: center;
+        padding: 30px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .app-name {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 36px;
+        font-weight: 700; 
+        color: #2c3e50; 
+        letter-spacing: -0.5px; 
+        margin: 0; 
+    }
+    .app-caption {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #7f8c8d;
+        margin: 5px 0 0 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+<header class="app-branding">
+    <h1 class="app-name">Ordnata</h1>
+    <p class="app-caption">Strukturierte Verwaltung, mühelos.</p>
+</header>
+    <div class="menu">
+        <button onclick="location.href='residents.html'">Bewohner</button>
+        <button onclick="location.href='issue-code.html'">Internet Codes</button>
+        <button onclick="location.href='forms.html'">Reinigungsplan</button>
+        <button onclick="location.href='appointments.html'">Termine</button>
+        <button onclick="location.href='blocked.html'">Gesperrte Bewohner</button>
+    </div>
+</div>
+
+<div class="floating-actions">
+    <button onclick="location.href='whats-new.html'">Über die App</button>
+    
+    <button onclick="location.href='contact.html'">Kontakt</button>
+</div>
+
+
+<footer>Entwickelt von Osman</footer>
+
+</body>
+</html>

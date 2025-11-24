@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Kontakt</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background: #f0f2f5;
+        margin: 0;
+        padding: 30px;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    /* Back Button */
+    #backBtn {
+        background: #6c7a89;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    #backBtn:hover { background: #5a6772; }
+
+    /* Card */
+    .card {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 18px;
+        width: 450px;
+        max-width: 90%;
+        margin: 70px auto 30px auto;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+    }
+
+    h1 {
+        font-size: 28px;
+        color: #357ABD;
+        margin-bottom: 20px;
+    }
+    
+    p {
+        color: #4a4a4a;
+        margin-bottom: 25px;
+    }
+
+    .contact-link {
+        display: inline-block;
+        padding: 12px 25px;
+        background: #008080; /* Grün */
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background 0.2s;
+    }
+    .contact-link:hover {
+        background: #27ae60;
+    }
+
+    .hint {
+        margin-top: 30px;
+        font-size: 0.9em;
+        color: #6c7a89;
+    }
+</style>
+</head>
+
+<body>
+<a id="backBtn" href="index.html">← Zurück</a>
+
+<div class="card">
+    <h1>👋 Kontakt</h1>
+
+    <p>
+        Hast du eine Idee, einen Verbesserungsvorschlag oder brauchst du Hilfe mit der App? 
+        Schreib mir einfach eine E-Mail!
+    </p>
+
+    <a href="mailto:ossomvn@outlook.com?subject=Frage%20zur%20Hausverwaltungs-App" class="contact-link">
+        ✉️ E-Mail schreiben
+    </a>
+
+    <div class="hint">
+        Deine Nachricht geht direkt an: ossomvn@outlook.com
+    </div>
+
+</div>
+
+<footer style="text-align: center; margin-top: 20px; color: #888; font-size: 12.5px;">Entwickelt von Osman</footer>
+
+</body>
+</html>
