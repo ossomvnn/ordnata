@@ -5,8 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder" 
-    /* Dieser Befehl baut die Windows und Mac Versionen */
+    "build": "electron-builder"
   },
   "keywords": [
     "electron",
@@ -21,7 +20,6 @@
     "electron-builder": "^24.9.1"
   },
   
-  /* NEUE BUILD-SEKTION FÜR electron-builder */
   "build": {
     "appId": "com.ossomvn.ordnata",
     "productName": "Ordnata",
@@ -33,10 +31,14 @@
     "directories": {
       "output": "release-builds"
     },
+    
     "win": {
       "target": "nsis",
-      "icon": "css/logo.png"
+      "icon": "css/logo.png",
+      "publisherName": "ossomvn", 
+      "requestedExecutionLevel": "asInvoker"
     },
+    
     "mac": {
       "target": "dmg",
       "icon": "css/logo.png" 
