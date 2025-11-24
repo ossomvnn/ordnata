@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <br>
 
     <div class="sender">
-        UPPEN | Osterhuser 49 B , 26759 Hinte 
+        UBBEN | Osterhuser 49 B , 26759 Hinte 
     </div>
 
     <div class="receiver">
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <p>
         <br>
-        <h4 onclick="window.print()">UPPEN</h4>
+        <h4 onclick="window.print()">UBBEN</h4>
     </p>
 
 </div>
