@@ -1,6 +1,6 @@
 {
   "name": "ossomvn-internet-codes",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -8,17 +8,24 @@
     "build:win": "electron-builder --win"
   },
   "build": {
-    "appId": "com.osman.internetcodes",
-    "productName": "InternetCodesApp",
+    "appId": "com.ossomvn.internetcodes",
+    "productName": "KlarCode Manager",
+    "asar": true,
     "directories": {
       "output": "dist"
     },
     "win": {
-      "target": "nsis"
-    }
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "files": [
+      "**/*",
+      "!dist/",
+      "!node_modules/.cache/"
+    ]
   },
   "devDependencies": {
     "electron": "^25.0.0",
-    "electron-builder": "^24.0.0"
+    "electron-builder": "^24.13.3"
   }
 }
